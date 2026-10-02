@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Italiana&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-warm-stone: #f0ece4;
+  --color-card-bg: #ffffff;
+  --color-border: #cfc9be;
+  --color-bronze: #8c6034;
+  --color-dark: #0f0f12;
+}
+
+html {
+  background-color: var(--color-warm-stone);
+  color: var(--color-dark);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: auto;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  background-color: #f0ece4;
+  color: #0f0f12;
+}
+
+/* Subtle luxury grain */
+.bg-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: #0f0f12;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #e8e3da;
+}
+::-webkit-scrollbar-thumb {
+  background: #b5ada0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8c6034;
+}
+
+/* High-Contrast Interactive Cursor */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease,
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s ease, 
+              border 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  will-change: transform, width, height;
+}
+
+.cursor-default {
+  width: 10px;
+  height: 10px;
+  background-color: #0f0f12;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.cursor-hover {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(15, 15, 18, 0.08);
+  border: 1.5px solid #0f0f12;
+}
+
+.cursor-zoom {
+  width: 70px;
+  height: 70px;
+  background-color: #0f0f12;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cursor-drag {
+  width: 70px;
+  height: 70px;
+  background-color: #8c6034;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  box-shadow: 0 10px 25px rgba(140, 96, 52, 0.35);
+}
+
+/* Typography styles */
+.font-display-luxury {
+  font-family: 'Italiana', 'Cinzel', serif;
+}
+
+.font-serif-luxury {
+  font-family: 'Cinzel', serif;
+}
+
+/* Luxury Card Borders & Contrast */
+.card-luxury {
+  background-color: #ffffff;
+  border: 1px solid #cfc9be;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.card-luxury:hover {
+  border-color: #9e9587;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+/* Product Card 3D Tilt perspective */
+.product-card-container {
+  perspective: 1200px;
+}
+
+.product-card-inner {
+  background-color: #ffffff;
+  border: 1px solid #d4cfc5;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.product-card-container:hover .product-card-inner {
+  transform: translateY(-8px) scale(1.015);
+  border-color: #a89f91;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 15px rgba(140, 96, 52, 0.1);
+}
+
+/* Magnifier Loupe */
+.magnifier-lens {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  border: 2.5px solid #8c6034;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(140, 96, 52, 0.2);
+  width: 140px;
+  height: 140px;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 50;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+}
+
+/* Hotspot pulse rings */
+.hotspot-ring {
+  animation: pulse-ring 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Hide custom cursor and optical lens on touch / mobile devices */
+@media (pointer: coarse) {
+  #custom-cursor,
+  .magnifier-lens {
+    display: none !important;
+  }
+}
+
+/* Lenis Recommended Performance CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Infinite Marquee ticker */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  min-width: 200%;
+  animation: marquee-scroll 28s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.animate-marquee span {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Utility scrollbar hiding */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Image zoom interactions */
+.zoom-image-container {
+  overflow: hidden;
+}
+
+.zoom-image {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.zoom-image-container:hover .zoom-image {
+  transform: scale(1.08);
+}
+
+/* Luxury Interactive Form Controls Focus */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0f0f12 !important;
+  box-shadow: 0 0 0 1.5px #0f0f12 !important;
+}
+
+/* Tactile Button Feedback */
+button:active:not(:disabled) {
+  transform: scale(0.985);
+  transition: transform 0.08s ease;
+}

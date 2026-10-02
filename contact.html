@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appointments & Salons // VANGUARD Menswear</title>
+  <meta name="description" content="Book a private atelier fitting or bespoke tailoring consultation at our salons in Milan, London, Paris, or Tokyo." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239e7d54'%3E%3Cpath d='M12 2L2 22h20L12 2z'/%3E%3C/svg%3E" />
+
+  <!-- Render-Blocking Core Stylesheet (Completely prevents FOUC on refresh) -->
+  <link rel="stylesheet" href="/src/style.css" />
+
+  <!-- Critical Anti-FOUC Inline Rules: Prevents any unstyled flash on initial paint -->
+  <style>
+    html { background-color: #f0ece4; color: #0f0f12; }
+    [hidden] { display: none !important; }
+  </style>
+
+  <!-- Preconnect & Preload Luxury Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Italiana&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-[#f0ece4] text-[#0f0f12] selection:bg-stone-900 selection:text-white antialiased">
+
+  <div class="bg-grain"></div>
+  <div id="custom-cursor" class="cursor-default opacity-0"></div>
+
+  <!-- Minimalist Light Navbar -->
+  <header class="sticky top-0 inset-x-0 z-50 bg-[#faf8f5]/95 backdrop-blur-md border-b border-[#e6e2d8] transition-all">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+      <a href="/index.html" class="flex items-center gap-2 group">
+        <span class="font-display-luxury text-2xl md:text-3xl font-bold tracking-wider text-stone-950 group-hover:text-stone-700 transition-colors">
+          VANGUARD
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="/index.html" data-nav-link="home" class="text-xs font-mono tracking-widest uppercase transition-colors py-1 text-stone-700 hover:text-stone-950 font-semibold">Home</a>
+        <a href="/collection.html" data-nav-link="collection" class="text-xs font-mono tracking-widest uppercase transition-colors py-1 text-stone-700 hover:text-stone-950 font-semibold">Collections</a>
+        <a href="/lookbook.html" data-nav-link="lookbook" class="text-xs font-mono tracking-widest uppercase transition-colors py-1 text-stone-700 hover:text-stone-950 font-semibold">Lookbook</a>
+        <a href="/craftsmanship.html" data-nav-link="craftsmanship" class="text-xs font-mono tracking-widest uppercase transition-colors py-1 text-stone-700 hover:text-stone-950 font-semibold">Atelier Craft</a>
+        <a href="/contact.html" data-nav-link="contact" class="text-xs font-mono tracking-widest uppercase transition-colors py-1 text-stone-700 hover:text-stone-950 font-semibold">Appointments</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <!-- Shopping Bag Trigger -->
+        <button data-open-cart class="relative px-3.5 py-2 rounded-xl bg-stone-900 text-white hover:bg-stone-800 transition-colors flex items-center gap-2 shadow-sm">
+          <div class="relative">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="cart-count-badge absolute -top-2 -right-2 bg-amber-400 text-black text-[10px] font-mono font-bold w-4 h-4 rounded-full flex items-center justify-center transform scale-100 transition-transform shadow">
+              1
+            </span>
+          </div>
+          <span class="text-xs font-mono tracking-widest hidden sm:inline-block font-bold">BAG</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-toggle" class="md:hidden p-2 text-stone-900 hover:text-black">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu-drawer" class="fixed inset-0 z-[60] bg-[#faf8f5] p-8 flex flex-col justify-between transform translate-x-full transition-transform duration-300 md:hidden">
+    <div class="flex items-center justify-between border-b border-[#e6e2d8] pb-6">
+      <span class="font-display-luxury text-2xl font-bold text-stone-950">VANGUARD</span>
+      <button id="mobile-menu-close" class="p-2 text-stone-700 hover:text-black">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="flex flex-col gap-6 py-10 font-display-luxury text-3xl font-medium">
+      <a href="/index.html" class="text-stone-950 hover:text-bronze-600">Home</a>
+      <a href="/collection.html" class="text-stone-950 hover:text-bronze-600">Collections</a>
+      <a href="/lookbook.html" class="text-stone-950 hover:text-bronze-600">Lookbook</a>
+      <a href="/craftsmanship.html" class="text-stone-950 hover:text-bronze-600">Atelier Craft</a>
+      <a href="/contact.html" class="text-stone-950 hover:text-bronze-600">Appointments</a>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <section class="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-12 text-center">
+    <span class="text-xs font-mono tracking-widest text-bronze-600 uppercase block mb-3 font-semibold">
+      PRIVATE CLIENT SERVICES
+    </span>
+    <h1 class="font-display-luxury text-4xl sm:text-7xl font-light text-stone-900 mb-6">
+      Salons & Appointments
+    </h1>
+    <p class="text-sm sm:text-base text-stone-600 font-light max-w-xl mx-auto leading-relaxed">
+      Arrange a private salon fitting with our senior tailoring directors in Milan, London, Paris, or Tokyo, or schedule a bespoke traveling trunk show.
+    </p>
+  </section>
+
+  <!-- Content Grid -->
+  <main class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      
+      <!-- Left: Appointment Request Form -->
+      <div class="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-stone-200 shadow-sm">
+        <span class="text-xs font-mono text-bronze-600 font-semibold uppercase tracking-wider block mb-2">
+          BESPOKE COMMISSION
+        </span>
+        <h2 class="font-display-luxury text-3xl text-stone-900 mb-6 font-light">
+          Reserve a Fitting
+        </h2>
+
+        <form id="appointment-form" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-mono text-stone-600 uppercase mb-2">Full Name *</label>
+              <input 
+                type="text" 
+                required 
+                placeholder="e.g. Lord Julian Sterling" 
+                class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs font-mono text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-600"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-stone-600 uppercase mb-2">Email Address *</label>
+              <input 
+                type="email" 
+                required 
+                placeholder="julian@example.com" 
+                class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs font-mono text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-600"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-mono text-stone-600 uppercase mb-2">Preferred Salon *</label>
+              <select required class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs font-mono text-stone-900 focus:outline-none focus:border-stone-600">
+                <option value="milano">Milan — Via Montenapoleone Salone</option>
+                <option value="london">London — Savile Row Salone</option>
+                <option value="paris">Paris — Place Vendôme Salone</option>
+                <option value="tokyo">Tokyo — Ginza Private Salone</option>
+                <option value="trunk">Private Trunk Show (Your Residence)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-stone-600 uppercase mb-2">Service of Interest *</label>
+              <select required class="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-xs font-mono text-stone-900 focus:outline-none focus:border-stone-600">
+                <option value="bespoke-suit">Bespoke Suit Commission (Full Canvas)</option>
+                <option value="overcoat">Architectural Overcoat Customization</option>
+                <option value="capsule-preview">A/W 26 Runway Wardrobe Preview</option>
+                <option value="styling">Executive Wardrobe Architecture</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-stone-600 uppercase mb-2">Special Requests or Wardrobe Notes</label>
+            <textarea 
+              rows="4" 
+              placeholder="Provide any sizing preferences, specific fabric interests, or preferred dates..."
+              class="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-xs font-mono text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-600"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full py-4 rounded-xl bg-stone-900 hover:bg-bronze-600 text-white font-mono text-xs font-bold tracking-widest uppercase transition-all shadow-md"
+          >
+            TRANSMIT APPOINTMENT DOSSIER ✦
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Global Salons Directory -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
+          <span class="text-xs font-mono text-bronze-600 font-semibold uppercase">FLAGSHIP ATELIER</span>
+          <h3 class="font-display-luxury text-2xl text-stone-900 mt-1 mb-2">Milano Salone</h3>
+          <p class="text-xs font-mono text-stone-500 mb-4">Via Montenapoleone 8, 20121 Milano, Italy</p>
+          <p class="text-xs text-stone-600 font-light leading-relaxed">
+            Four private fitting chambers, full archive fabric vault with over 800 Italian and British cloths, and dedicated resident master cutter.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
+          <span class="text-xs font-mono text-bronze-600 font-semibold uppercase">UNITED KINGDOM</span>
+          <h3 class="font-display-luxury text-2xl text-stone-900 mt-1 mb-2">London Savile Row</h3>
+          <p class="text-xs font-mono text-stone-500 mb-4">14 Savile Row, Mayfair, London W1S 3JN</p>
+          <p class="text-xs text-stone-600 font-light leading-relaxed">
+            By private appointment only. Complimentary concierge car service provided within Central London.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-white border border-stone-200 shadow-sm">
+          <span class="text-xs font-mono text-bronze-600 font-semibold uppercase">ASIA PACIFIC</span>
+          <h3 class="font-display-luxury text-2xl text-stone-900 mt-1 mb-2">Tokyo Ginza</h3>
+          <p class="text-xs font-mono text-stone-500 mb-4">6-10-1 Ginza, Chuo-ku, Tokyo 104-0061</p>
+          <p class="text-xs text-stone-600 font-light leading-relaxed">
+            Bespoke suiting consultations paired with private Japanese whiskey and espresso tasting salon.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Simple Footer -->
+  <footer class="bg-white py-16 px-6 md:px-12 border-t border-stone-200 mt-20">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs font-mono text-stone-500">
+      <div class="font-display-luxury text-xl text-stone-900">VANGUARD</div>
+      <div>MILANO — VIA MONTENAPOLEONE 8</div>
+      <div>© 2026 VANGUARD ATELIER S.P.A.</div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div id="cart-backdrop" class="fixed inset-0 z-[70] bg-stone-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 z-[75] w-full sm:w-[480px] h-full bg-white border-l border-stone-200 shadow-2xl transform translate-x-full transition-transform duration-500 ease-out flex flex-col justify-between">
+    <div class="p-6 border-b border-stone-200 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <h3 class="font-serif text-lg text-stone-900 font-medium">SHOPPING BAG</h3>
+        <span class="cart-count-badge px-2 py-0.5 rounded-full bg-stone-900 text-white font-mono text-[11px] font-bold">1</span>
+      </div>
+      <button data-close-cart class="p-2 rounded-lg text-stone-500 hover:text-stone-900 hover:bg-stone-100">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
+      <div id="cart-drawer-items" class="space-y-4"></div>
+      <div id="cart-empty-state" class="hidden text-center py-16">
+        <p class="font-serif text-stone-900 text-base">Your shopping bag is empty.</p>
+      </div>
+    </div>
+    <div id="cart-footer" class="p-6 border-t border-stone-200 bg-stone-50 space-y-4">
+      <div class="flex justify-between text-stone-900 text-sm font-semibold">
+        <span>ESTIMATED TOTAL</span>
+        <span id="cart-total" class="font-mono text-bronze-600 text-base font-bold">$1,480</span>
+      </div>
+      <button id="checkout-btn" class="w-full py-4 rounded-xl bg-stone-900 hover:bg-bronze-600 text-white font-mono text-xs font-bold tracking-widest uppercase transition-colors shadow-lg">
+        SECURE CHECKOUT →
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/pages/contact.js"></script>
+</body>
+</html>
